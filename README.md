@@ -67,3 +67,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
    ## Project Members
    - 6377258
+
+
+
+
+## UML Models
+
+UML class diagrams for the four key subsystems of the CHMS.
