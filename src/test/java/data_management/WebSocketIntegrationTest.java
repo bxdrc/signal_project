@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +32,8 @@ class WebSocketIntegrationTest {
         DataStorage.resetInstance();
         server = new TestWebSocketServer(PORT);
         server.start();
-        Thread.sleep(500); // wait for server to bind
+        // Wait for the server's onStart() callback rather than sleeping blindly
+        assertTrue(server.awaitStart(5, TimeUnit.SECONDS), "Server did not start within 5 seconds");
     }
 
     @AfterEach
@@ -48,7 +51,7 @@ class WebSocketIntegrationTest {
         // readData() used connectBlocking(), so the handshake is already done
         // and the server's onOpen() message is in flight — short poll suffices
         List<PatientRecord> records = List.of();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             Thread.sleep(100);
             records = storage.getRecords(1, 0, Long.MAX_VALUE);
             if (!records.isEmpty()) break;
@@ -61,8 +64,14 @@ class WebSocketIntegrationTest {
 
     /** Minimal server that sends one patient record as soon as a client connects. */
     private static class TestWebSocketServer extends WebSocketServer {
+        private final CountDownLatch startLatch = new CountDownLatch(1);
+
         TestWebSocketServer(int port) {
             super(new InetSocketAddress(port));
+        }
+
+        boolean awaitStart(long timeout, TimeUnit unit) throws InterruptedException {
+            return startLatch.await(timeout, unit);
         }
 
         @Override
@@ -80,6 +89,8 @@ class WebSocketIntegrationTest {
         public void onError(WebSocket conn, Exception ex) {}
 
         @Override
-        public void onStart() {}
+        public void onStart() {
+            startLatch.countDown();
+        }
     }
 }
