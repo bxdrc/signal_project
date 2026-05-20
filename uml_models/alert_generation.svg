@@ -1,0 +1,118 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="12">
+  <rect width="900" height="600" fill="#f8f9fa"/>
+  <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">Alert Generation System — UML Class Diagram</text>
+
+  <!-- AlertThreshold -->
+  <rect x="20" y="55" width="200" height="130" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="20" y="55" width="200" height="25" fill="#1a1a2e"/>
+  <text x="120" y="72" text-anchor="middle" fill="white" font-weight="bold">AlertThreshold</text>
+  <line x1="20" y1="105" x2="220" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="97" fill="#333">- patientId: int</text>
+  <text x="30" y="102" fill="#333" dy="8">- metric: String</text>
+  <text x="30" y="116" fill="#333">- threshold: double</text>
+  <line x1="20" y1="125" x2="220" y2="125" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="140" fill="#333">+ isExceeded(value: double): boolean</text>
+  <text x="30" y="157" fill="#333">+ getMetric(): String</text>
+  <text x="30" y="174" fill="#333">+ getThreshold(): double</text>
+
+  <!-- AlertGenerator -->
+  <rect x="300" y="55" width="260" height="155" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="300" y="55" width="260" height="25" fill="#1a1a2e"/>
+  <text x="430" y="72" text-anchor="middle" fill="white" font-weight="bold">AlertGenerator</text>
+  <line x1="300" y1="105" x2="560" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="97" fill="#333">- dataStorage: DataStorage</text>
+  <text x="310" y="102" fill="#333" dy="8">- thresholds: List&lt;AlertThreshold&gt;</text>
+  <line x1="300" y1="122" x2="560" y2="122" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="137" fill="#333">+ evaluateData(patient: Patient): void</text>
+  <text x="310" y="153" fill="#333">+ checkThreshold(id: int, val: double): boolean</text>
+  <text x="310" y="169" fill="#333">+ addThreshold(t: AlertThreshold): void</text>
+  <text x="310" y="185" fill="#333">+ triggerAlert(alert: Alert): void</text>
+  <text x="310" y="200" fill="#333">- createAlert(id: int, cond: String): Alert</text>
+
+  <!-- Alert -->
+  <rect x="300" y="280" width="260" height="140" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="300" y="280" width="260" height="25" fill="#1a1a2e"/>
+  <text x="430" y="297" text-anchor="middle" fill="white" font-weight="bold">Alert</text>
+  <line x1="300" y1="322" x2="560" y2="322" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="315" fill="#333">- patientId: int</text>
+  <text x="310" y="315" fill="#333" dy="14">- condition: String</text>
+  <text x="310" y="344" fill="#333">- timestamp: long</text>
+  <text x="310" y="360" fill="#333">- severity: String</text>
+  <line x1="300" y1="372" x2="560" y2="372" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="387" fill="#333">+ getPatientId(): int</text>
+  <text x="310" y="403" fill="#333">+ getCondition(): String</text>
+  <text x="310" y="415" fill="#333" dy="3">+ getSeverity(): String</text>
+
+  <!-- AlertManager -->
+  <rect x="640" y="55" width="240" height="155" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="640" y="55" width="240" height="25" fill="#1a1a2e"/>
+  <text x="760" y="72" text-anchor="middle" fill="white" font-weight="bold">AlertManager</text>
+  <line x1="640" y1="105" x2="880" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="97" fill="#333">- activeAlerts: List&lt;Alert&gt;</text>
+  <text x="650" y="102" fill="#333" dy="8">- notifier: StaffNotifier</text>
+  <line x1="640" y1="122" x2="880" y2="122" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="137" fill="#333">+ dispatchAlert(alert: Alert): void</text>
+  <text x="650" y="153" fill="#333">+ getActiveAlerts(): List&lt;Alert&gt;</text>
+  <text x="650" y="169" fill="#333">+ resolveAlert(alertId: int): void</text>
+  <text x="650" y="185" fill="#333">+ notifyStaff(alert: Alert): void</text>
+
+  <!-- StaffNotifier -->
+  <rect x="640" y="280" width="240" height="120" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="640" y="280" width="240" height="25" fill="#1a1a2e"/>
+  <text x="760" y="297" text-anchor="middle" fill="white" font-weight="bold">StaffNotifier</text>
+  <line x1="640" y1="322" x2="880" y2="322" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="315" fill="#333">- contactList: List&lt;String&gt;</text>
+  <line x1="640" y1="330" x2="880" y2="330" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="345" fill="#333">+ sendNotification(alert: Alert): void</text>
+  <text x="650" y="361" fill="#333">+ addContact(contact: String): void</text>
+  <text x="650" y="377" fill="#333">+ getContacts(): List&lt;String&gt;</text>
+
+  <!-- DataStorage (external ref) -->
+  <rect x="20" y="280" width="200" height="80" fill="#e8e8e8" stroke="#999" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="120" y="315" text-anchor="middle" fill="#555" font-weight="bold">«external»</text>
+  <text x="120" y="335" text-anchor="middle" fill="#555" font-weight="bold">DataStorage</text>
+
+  <!-- Arrows -->
+  <!-- AlertGenerator uses AlertThreshold -->
+  <line x1="300" y1="100" x2="220" y2="100" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="230" y="93" font-size="10" fill="#555">uses</text>
+
+  <!-- AlertGenerator creates Alert -->
+  <line x1="430" y1="210" x2="430" y2="280" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="435" y="250" font-size="10" fill="#555">creates</text>
+
+  <!-- AlertGenerator sends to AlertManager -->
+  <line x1="560" y1="100" x2="640" y2="100" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="570" y="93" font-size="10" fill="#555">sends to</text>
+
+  <!-- AlertManager dispatches Alert -->
+  <line x1="640" y1="160" x2="560" y2="320" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="585" y="240" font-size="10" fill="#555">dispatches</text>
+
+  <!-- AlertManager uses StaffNotifier -->
+  <line x1="760" y1="210" x2="760" y2="280" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="765" y="250" font-size="10" fill="#555">uses</text>
+
+  <!-- AlertGenerator uses DataStorage -->
+  <line x1="300" y1="130" x2="220" y2="310" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+
+  <!-- Multiplicity labels -->
+  <text x="225" y="88" font-size="10" fill="#e63946">1</text>
+  <text x="282" y="88" font-size="10" fill="#e63946">0..*</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="20" y="480" width="400" height="100" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="30" y="498" font-size="11" font-weight="bold" fill="#333">Legend</text>
+  <line x1="30" y1="510" x2="80" y2="510" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="85" y="514" font-size="10" fill="#333">Association / Dependency</text>
+  <line x1="30" y1="530" x2="80" y2="530" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="85" y="534" font-size="10" fill="#333">Dashed = creates / uses (dependency)</text>
+  <rect x="30" y="545" width="50" height="20" fill="#e8e8e8" stroke="#999" stroke-dasharray="4,2"/>
+  <text x="85" y="558" font-size="10" fill="#333">External class (from another subsystem)</text>
+</svg>

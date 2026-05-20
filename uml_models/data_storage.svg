@@ -1,0 +1,127 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="12">
+  <rect width="900" height="620" fill="#f8f9fa"/>
+  <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">Data Storage System — UML Class Diagram</text>
+
+  <!-- DataStorage -->
+  <rect x="300" y="55" width="260" height="160" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="300" y="55" width="260" height="25" fill="#1a1a2e"/>
+  <text x="430" y="72" text-anchor="middle" fill="white" font-weight="bold">DataStorage</text>
+  <line x1="300" y1="105" x2="560" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="97" fill="#333">- records: Map&lt;Integer, List&lt;PatientRecord&gt;&gt;</text>
+  <text x="310" y="113" fill="#333">- accessController: AccessController</text>
+  <line x1="300" y1="122" x2="560" y2="122" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="137" fill="#333">+ addPatientData(id: int, r: PatientRecord): void</text>
+  <text x="310" y="153" fill="#333">+ getRecords(id: int, start: long, end: long)</text>
+  <text x="310" y="169" fill="#333">  : List&lt;PatientRecord&gt;</text>
+  <text x="310" y="185" fill="#333">+ deleteRecord(id: int, timestamp: long): void</text>
+  <text x="310" y="201" fill="#333">+ getAllPatientIds(): List&lt;Integer&gt;</text>
+
+  <!-- PatientRecord -->
+  <rect x="20" y="55" width="230" height="160" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="20" y="55" width="230" height="25" fill="#1a1a2e"/>
+  <text x="135" y="72" text-anchor="middle" fill="white" font-weight="bold">PatientRecord</text>
+  <line x1="20" y1="105" x2="250" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="97" fill="#333">- patientId: int</text>
+  <text x="30" y="113" fill="#333">- measurementValue: double</text>
+  <line x1="20" y1="122" x2="250" y2="122" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="137" fill="#333">- recordType: String</text>
+  <text x="30" y="153" fill="#333">- timestamp: long</text>
+  <text x="30" y="169" fill="#333">- version: int</text>
+  <line x1="20" y1="178" x2="250" y2="178" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="193" fill="#333">+ getMeasurementValue(): double</text>
+  <text x="30" y="209" fill="#333">+ getTimestamp(): long</text>
+
+  <!-- DataRetriever -->
+  <rect x="640" y="55" width="240" height="145" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="640" y="55" width="240" height="25" fill="#1a1a2e"/>
+  <text x="760" y="72" text-anchor="middle" fill="white" font-weight="bold">DataRetriever</text>
+  <line x1="640" y1="105" x2="880" y2="105" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="97" fill="#333">- storage: DataStorage</text>
+  <text x="650" y="113" fill="#333">- accessController: AccessController</text>
+  <line x1="640" y1="122" x2="880" y2="122" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="137" fill="#333">+ queryByPatient(id: int): List&lt;PatientRecord&gt;</text>
+  <text x="650" y="153" fill="#333">+ queryByTimeRange(id: int,</text>
+  <text x="650" y="169" fill="#333">  start: long, end: long): List&lt;PatientRecord&gt;</text>
+  <text x="650" y="185" fill="#333">+ queryByType(type: String): List&lt;PatientRecord&gt;</text>
+
+  <!-- AccessController -->
+  <rect x="640" y="280" width="240" height="130" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="640" y="280" width="240" height="25" fill="#1a1a2e"/>
+  <text x="760" y="297" text-anchor="middle" fill="white" font-weight="bold">AccessController</text>
+  <line x1="640" y1="322" x2="880" y2="322" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="315" fill="#333">- allowedRoles: List&lt;String&gt;</text>
+  <line x1="640" y1="330" x2="880" y2="330" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="650" y="345" fill="#333">+ canAccess(role: String, id: int): boolean</text>
+  <text x="650" y="361" fill="#333">+ grantAccess(role: String): void</text>
+  <text x="650" y="377" fill="#333">+ revokeAccess(role: String): void</text>
+  <text x="650" y="393" fill="#333">+ logAccessAttempt(role: String): void</text>
+
+  <!-- DataDeletionPolicy -->
+  <rect x="300" y="300" width="260" height="130" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="300" y="300" width="260" height="25" fill="#1a1a2e"/>
+  <text x="430" y="317" text-anchor="middle" fill="white" font-weight="bold">DataDeletionPolicy</text>
+  <line x1="300" y1="342" x2="560" y2="342" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="335" fill="#333">- maxAgeInDays: int</text>
+  <text x="310" y="335" fill="#333" dy="14">- lastRunTimestamp: long</text>
+  <line x1="300" y1="358" x2="560" y2="358" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="310" y="373" fill="#333">+ deleteOldRecords(storage: DataStorage): void</text>
+  <text x="310" y="389" fill="#333">+ setMaxAge(days: int): void</text>
+  <text x="310" y="405" fill="#333">+ getLastRunTimestamp(): long</text>
+  <text x="310" y="421" fill="#333">+ scheduleDeletion(interval: long): void</text>
+
+  <!-- DataAuditLog -->
+  <rect x="20" y="300" width="230" height="130" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="20" y="300" width="230" height="25" fill="#1a1a2e"/>
+  <text x="135" y="317" text-anchor="middle" fill="white" font-weight="bold">DataAuditLog</text>
+  <line x1="20" y1="342" x2="250" y2="342" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="335" fill="#333">- entries: List&lt;String&gt;</text>
+  <line x1="20" y1="350" x2="250" y2="350" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="365" fill="#333">+ logAccess(role: String, id: int): void</text>
+  <text x="30" y="381" fill="#333">+ logDeletion(id: int, timestamp: long): void</text>
+  <text x="30" y="397" fill="#333">+ getEntries(): List&lt;String&gt;</text>
+  <text x="30" y="413" fill="#333">+ clearLog(): void</text>
+
+  <!-- Arrows -->
+  <!-- DataStorage composes PatientRecord -->
+  <line x1="300" y1="120" x2="250" y2="120" stroke="#333" stroke-width="1.5" marker-end="url(#diamond)"/>
+  <text x="255" y="113" font-size="10" fill="#555">1</text>
+  <text x="275" y="113" font-size="10" fill="#555">0..*</text>
+
+  <!-- DataRetriever uses DataStorage -->
+  <line x1="640" y1="110" x2="560" y2="110" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="572" y="103" font-size="10" fill="#555">uses</text>
+
+  <!-- DataDeletionPolicy uses DataStorage -->
+  <line x1="430" y1="300" x2="430" y2="215" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="435" y="260" font-size="10" fill="#555">uses</text>
+
+  <!-- AccessController guards DataRetriever -->
+  <line x1="760" y1="280" x2="760" y2="200" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="765" y="245" font-size="10" fill="#555">guards</text>
+
+  <!-- DataStorage uses AccessController -->
+  <line x1="560" y1="155" x2="640" y2="320" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+
+  <!-- DataAuditLog used by DataStorage -->
+  <line x1="135" y1="300" x2="310" y2="215" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="160" y="268" font-size="10" fill="#555">logs to</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+      <polygon points="0 4, 4 0, 8 4, 4 8" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="20" y="500" width="420" height="100" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="30" y="518" font-size="11" font-weight="bold" fill="#333">Legend</text>
+  <line x1="30" y1="530" x2="80" y2="530" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="85" y="534" font-size="10" fill="#333">Association</text>
+  <line x1="30" y1="548" x2="80" y2="548" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="85" y="552" font-size="10" fill="#333">Dependency</text>
+  <line x1="30" y1="566" x2="80" y2="566" stroke="#333" stroke-width="1.5" marker-end="url(#diamond)"/>
+  <text x="85" y="570" font-size="10" fill="#333">Composition (diamond = whole side)</text>
+</svg>

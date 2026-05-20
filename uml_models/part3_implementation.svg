@@ -1,0 +1,163 @@
+<svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="11">
+  <rect width="1000" height="680" fill="#f8f9fa"/>
+  <text x="500" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">Part 3 Implementation — UML Class Diagram</text>
+
+  <!-- DataReader (interface) -->
+  <rect x="20" y="50" width="210" height="80" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="20" y="50" width="210" height="22" fill="#1a1a2e"/>
+  <text x="125" y="63" text-anchor="middle" fill="white" font-style="italic">«interface»</text>
+  <text x="125" y="63" fill="white" font-weight="bold" dy="10" text-anchor="middle">DataReader</text>
+  <line x1="20" y1="95" x2="230" y2="95" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="112" fill="#333">+ readData(storage: DataStorage): void</text>
+  <text x="30" y="126" fill="#555" font-size="10">  throws IOException</text>
+
+  <!-- FileDataReader -->
+  <rect x="20" y="195" width="210" height="110" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="20" y="195" width="210" height="22" fill="#1a1a2e"/>
+  <text x="125" y="210" text-anchor="middle" fill="white" font-weight="bold">FileDataReader</text>
+  <line x1="20" y1="237" x2="230" y2="237" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="252" fill="#333">- directory: String</text>
+  <line x1="20" y1="260" x2="230" y2="260" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="30" y="274" fill="#333">+ readData(storage: DataStorage): void</text>
+  <text x="30" y="288" fill="#333">- parseFile(file: Path, ...): void</text>
+  <text x="30" y="302" fill="#333">- parseLine(line: String, ...): void</text>
+
+  <!-- DataStorage -->
+  <rect x="290" y="50" width="250" height="175" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="290" y="50" width="250" height="22" fill="#1a1a2e"/>
+  <text x="415" y="66" text-anchor="middle" fill="white" font-weight="bold">DataStorage</text>
+  <line x1="290" y1="95" x2="540" y2="95" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="110" fill="#333">- patientMap: Map&lt;Integer, Patient&gt;</text>
+  <line x1="290" y1="118" x2="540" y2="118" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="133" fill="#333">+ addPatientData(id: int, val: double,</text>
+  <text x="300" y="147" fill="#333">    type: String, ts: long): void</text>
+  <text x="300" y="161" fill="#333">+ getRecords(id: int, start: long,</text>
+  <text x="300" y="175" fill="#333">    end: long): List&lt;PatientRecord&gt;</text>
+  <text x="300" y="189" fill="#333">+ getAllPatients(): List&lt;Patient&gt;</text>
+  <text x="300" y="203" fill="#333">+ main(args: String[]): void</text>
+
+  <!-- Patient -->
+  <rect x="290" y="290" width="250" height="155" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="290" y="290" width="250" height="22" fill="#1a1a2e"/>
+  <text x="415" y="306" text-anchor="middle" fill="white" font-weight="bold">Patient</text>
+  <line x1="290" y1="335" x2="540" y2="335" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="350" fill="#333">- patientId: int</text>
+  <text x="300" y="364" fill="#333">- patientRecords: List&lt;PatientRecord&gt;</text>
+  <line x1="290" y1="372" x2="540" y2="372" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="387" fill="#333">+ getPatientId(): int</text>
+  <text x="300" y="401" fill="#333">+ addRecord(val: double, type: String,</text>
+  <text x="300" y="415" fill="#333">    ts: long): void</text>
+  <text x="300" y="429" fill="#333">+ getRecords(start: long, end: long)</text>
+  <text x="300" y="443" fill="#333">    : List&lt;PatientRecord&gt;</text>
+
+  <!-- PatientRecord -->
+  <rect x="290" y="510" width="250" height="145" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="290" y="510" width="250" height="22" fill="#1a1a2e"/>
+  <text x="415" y="526" text-anchor="middle" fill="white" font-weight="bold">PatientRecord</text>
+  <line x1="290" y1="555" x2="540" y2="555" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="570" fill="#333">- patientId: int</text>
+  <text x="300" y="584" fill="#333">- measurementValue: double</text>
+  <text x="300" y="598" fill="#333">- recordType: String</text>
+  <text x="300" y="612" fill="#333">- timestamp: long</text>
+  <line x1="290" y1="620" x2="540" y2="620" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="300" y="635" fill="#333">+ getPatientId(): int</text>
+  <text x="300" y="649" fill="#333">+ getMeasurementValue(): double</text>
+
+  <!-- AlertGenerator -->
+  <rect x="610" y="50" width="280" height="255" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="610" y="50" width="280" height="22" fill="#1a1a2e"/>
+  <text x="750" y="66" text-anchor="middle" fill="white" font-weight="bold">AlertGenerator</text>
+  <line x1="610" y1="95" x2="890" y2="95" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="620" y="110" fill="#333">- dataStorage: DataStorage</text>
+  <text x="620" y="124" fill="#333">- ECG_WINDOW_SIZE: int = 10</text>
+  <text x="620" y="138" fill="#333">- ECG_PEAK_FACTOR: double = 2.0</text>
+  <text x="620" y="152" fill="#333">- SATURATION_DROP_WINDOW_MS: long</text>
+  <line x1="610" y1="160" x2="890" y2="160" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="620" y="175" fill="#333">+ evaluateData(patient: Patient): void</text>
+  <text x="620" y="189" fill="#333">- checkBloodPressureTrend(...): void</text>
+  <text x="620" y="203" fill="#333">- checkBloodPressureCritical(...): void</text>
+  <text x="620" y="217" fill="#333">- checkLowSaturation(...): void</text>
+  <text x="620" y="231" fill="#333">- checkRapidSaturationDrop(...): void</text>
+  <text x="620" y="245" fill="#333">- checkHypotensiveHypoxemia(...): void</text>
+  <text x="620" y="259" fill="#333">- checkECGAbnormalPeak(...): void</text>
+  <text x="620" y="273" fill="#333">- checkTriggeredAlert(...): void</text>
+  <text x="620" y="287" fill="#333">- triggerAlert(alert: Alert): void</text>
+  <text x="620" y="299" fill="#333">- filterByType(...): List&lt;PatientRecord&gt;</text>
+
+  <!-- Alert -->
+  <rect x="610" y="370" width="280" height="135" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="610" y="370" width="280" height="22" fill="#1a1a2e"/>
+  <text x="750" y="386" text-anchor="middle" fill="white" font-weight="bold">Alert</text>
+  <line x1="610" y1="415" x2="890" y2="415" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="620" y="430" fill="#333">- patientId: String</text>
+  <text x="620" y="444" fill="#333">- condition: String</text>
+  <text x="620" y="458" fill="#333">- timestamp: long</text>
+  <line x1="610" y1="465" x2="890" y2="465" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="620" y="480" fill="#333">+ getPatientId(): String</text>
+  <text x="620" y="494" fill="#333">+ getCondition(): String</text>
+  <text x="620" y="508" fill="#333">+ getTimestamp(): long</text>
+
+  <!-- Main -->
+  <rect x="610" y="560" width="280" height="80" fill="white" stroke="#1a1a2e" stroke-width="2"/>
+  <rect x="610" y="560" width="280" height="22" fill="#1a1a2e"/>
+  <text x="750" y="576" text-anchor="middle" fill="white" font-weight="bold">Main</text>
+  <line x1="610" y1="600" x2="890" y2="600" stroke="#1a1a2e" stroke-width="1"/>
+  <text x="620" y="618" fill="#333">+ main(args: String[]): void</text>
+  <text x="620" y="632" fill="#555" font-size="10">  dispatches to DataStorage or HealthDataSimulator</text>
+
+  <!-- Arrows -->
+  <!-- FileDataReader implements DataReader -->
+  <line x1="125" y1="195" x2="125" y2="130" stroke="#333" stroke-width="1.5" marker-end="url(#inherit)" stroke-dasharray="6,3"/>
+  <text x="130" y="165" font-size="10" fill="#555">implements</text>
+
+  <!-- FileDataReader uses DataStorage -->
+  <line x1="230" y1="240" x2="290" y2="140" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="232" y="185" font-size="10" fill="#555">uses</text>
+
+  <!-- DataStorage composes Patient -->
+  <line x1="415" y1="225" x2="415" y2="290" stroke="#333" stroke-width="1.5" marker-end="url(#diamond)"/>
+  <text x="420" y="262" font-size="10" fill="#555">1..*</text>
+
+  <!-- Patient composes PatientRecord -->
+  <line x1="415" y1="445" x2="415" y2="510" stroke="#333" stroke-width="1.5" marker-end="url(#diamond)"/>
+  <text x="420" y="482" font-size="10" fill="#555">0..*</text>
+
+  <!-- AlertGenerator uses DataStorage -->
+  <line x1="610" y1="120" x2="540" y2="120" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="548" y="113" font-size="10" fill="#555">uses</text>
+
+  <!-- AlertGenerator creates Alert -->
+  <line x1="750" y1="305" x2="750" y2="370" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="755" y="342" font-size="10" fill="#555">creates</text>
+
+  <!-- AlertGenerator evaluates Patient -->
+  <line x1="610" y1="175" x2="540" y2="350" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <text x="548" y="270" font-size="10" fill="#555">evaluates</text>
+
+  <!-- Main dispatches -->
+  <line x1="610" y1="590" x2="540" y2="150" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <marker id="diamond" markerWidth="12" markerHeight="8" refX="0" refY="4" orient="auto">
+      <polygon points="0 4, 4 0, 8 4, 4 8" fill="#333"/>
+    </marker>
+    <marker id="inherit" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto">
+      <polygon points="0 0, 10 5, 0 10" fill="none" stroke="#333" stroke-width="1.5"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="20" y="510" width="240" height="110" fill="white" stroke="#ccc" stroke-width="1"/>
+  <text x="30" y="528" font-size="11" font-weight="bold" fill="#333">Legend</text>
+  <line x1="30" y1="542" x2="75" y2="542" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="80" y="546" font-size="10" fill="#333">Association / uses</text>
+  <line x1="30" y1="560" x2="75" y2="560" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="80" y="564" font-size="10" fill="#333">Dependency (creates / evaluates)</text>
+  <line x1="30" y1="578" x2="75" y2="578" stroke="#333" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#inherit)"/>
+  <text x="80" y="582" font-size="10" fill="#333">Implements (interface)</text>
+  <line x1="30" y1="596" x2="75" y2="596" stroke="#333" stroke-width="1.5" marker-end="url(#diamond)"/>
+  <text x="80" y="600" font-size="10" fill="#333">Composition</text>
+</svg>

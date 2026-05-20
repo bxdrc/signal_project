@@ -73,4 +73,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## UML Models
 
-UML class diagrams for the four key subsystems of the CHMS.
+UML class diagrams for the four key subsystems of the CHMS are located in the [uml_models/](uml_models/) directory.
+
+- [Alert Generation](uml_models/alert_generation.svg)
+- [Data Storage](uml_models/data_storage.svg)
+- [Data Access Layer](uml_models/data_access_layer.svg)
+- [Patient Identification](uml_models/patient_identification.svg)
+
+See [uml_models/documentation.md](uml_models/documentation.md) for diagram descriptions.
