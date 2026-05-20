@@ -28,7 +28,8 @@ class AlertGeneratorTest {
      */
     @BeforeEach
     void setUp() {
-        storage = new DataStorage();
+        DataStorage.resetInstance();
+        storage = DataStorage.getInstance();
         generator = new AlertGenerator(storage);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
